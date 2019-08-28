@@ -57,7 +57,7 @@ router.delete('/quizes/:id', auth, async (req, res) => {
     }
     res.status(200).send(quiz);
   } catch (e) {
-    res.status(400).send(e);
+    res.status(400).send(e.message);
   }
 });
 

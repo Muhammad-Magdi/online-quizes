@@ -6,4 +6,5 @@ const dbName = 'online-quizes-api';
 mongoose.connect(dbURL.concat('/', dbName), {
   useNewUrlParser: true,
   useCreateIndex: true,
+  useFindAndModify: false,
 });
