@@ -1,9 +1,10 @@
 const express = require('express');
 const Quiz = require('../models/quiz');
+const auth = require('../middlewares/auth');
 
 const router = new express.Router();
 
-router.post('/quizes', async (req, res) => {
+router.post('/quizes', auth, async (req, res) => {
   const quiz = new Quiz(req.body);
   try {
     await quiz.save();
@@ -13,7 +14,7 @@ router.post('/quizes', async (req, res) => {
   }
 });
 
-router.post('/quizes/:id', async (req, res) => {
+router.post('/quizes/:id', auth, async (req, res) => {
   try {
     const quiz = await Quiz.findById(req.params.id);
     if (!quiz) {
@@ -51,7 +52,7 @@ router.get('/quizes/:id', async ({ params: { id } }, res) => {
 // I think this is not the best way
 // It fetches the whole quiz to delete a question
 // But it works for now
-router.delete('/quizes/:id', async (req, res) => {
+router.delete('/quizes/:id', auth, async (req, res) => {
   try {
     const quiz = await Quiz.findById(req.params.id);
     if (!quiz) {
