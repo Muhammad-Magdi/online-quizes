@@ -49,17 +49,12 @@ router.get('/quizes/:id', async ({ params: { id } }, res) => {
   }
 });
 
-// I think this is not the best way
-// It fetches the whole quiz to delete a question
-// But it works for now
 router.delete('/quizes/:id', auth, async (req, res) => {
   try {
-    const quiz = await Quiz.findById(req.params.id);
+    const quiz = await Quiz.findByIdAndUpdate(req.params.id, { $pull: { questions: { _id: req.body._id } } } );
     if (!quiz) {
       throw new Error('Invalid Quiz id!');
     }
-    quiz.questions.id(req.body._id).remove();
-    await quiz.save();
     res.status(200).send(quiz);
   } catch (e) {
     res.status(400).send(e);
