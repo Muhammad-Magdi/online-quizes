@@ -49,9 +49,11 @@ router.get('/quizes/:id', async ({ params: { id } }, res) => {
   }
 });
 
-router.delete('/quizes/:id', auth, async (req, res) => {
+router.delete('/quizes/:id', auth, async ({ params: { id: quizId }, body: { _id: questionId } }, res) => {
   try {
-    const quiz = await Quiz.findByIdAndUpdate(req.params.id, { $pull: { questions: { _id: req.body._id } } } );
+    const quiz = await Quiz.findByIdAndUpdate(quizId, {
+      $pull: { questions: { _id: questionId } },
+    }, { new: true });
     if (!quiz) {
       throw new Error('Invalid Quiz id!');
     }
