@@ -5,8 +5,13 @@
   "main": "index.js",
   "scripts": {
     "start": "node src/index.js",
-    "dev": "./node_modules/.bin/env-cmd -f ./config/dev.env nodemon src/index.js --exec 'npm run lint && node'",
-    "lint": "./node_modules/.bin/eslint ."
+    "dev": "npm run env nodemon src/index.js --exec 'npm run lint && node'",
+    "lint": "./node_modules/.bin/eslint src",
+    "test": "npm run env jest",
+    "env": "./node_modules/.bin/env-cmd -f ./config/dev.env"
+  },
+  "jest": {
+    "testEnvironment": "node"
   },
   "keywords": [],
   "author": "",
