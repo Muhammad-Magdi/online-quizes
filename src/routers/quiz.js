@@ -24,7 +24,7 @@ router.post('/quizes/:id', auth, async (req, res) => {
     await quiz.save();
     res.send(quiz);
   } catch (e) {
-    res.status(500).send(e);
+    res.status(400).send(e);
   }
 });
 
@@ -41,11 +41,11 @@ router.get('/quizes/:id', async ({ params: { id } }, res) => {
   try {
     const quiz = await Quiz.findById(id);
     if (!quiz) {
-      res.status(400).send(new Error('Invalid Quiz id!'));
+      throw new Error('Invalid Quiz id!');
     }
     res.send(quiz);
   } catch (e) {
-    res.status(500).send(e);
+    res.status(400).send(e);
   }
 });
 
