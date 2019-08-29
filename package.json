@@ -7,7 +7,7 @@
     "start": "node src/index.js",
     "dev": "npm run env nodemon src/index.js --exec 'npm run lint && node'",
     "lint": "./node_modules/.bin/eslint src",
-    "test": "npm run env jest",
+    "test": "./node_modules/.bin/env-cmd -f ./config/test.env jest",
     "env": "./node_modules/.bin/env-cmd -f ./config/dev.env"
   },
   "jest": {
