@@ -6,7 +6,14 @@ const questionSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  answers: [answerSchema],
+  answers: {
+    type: [answerSchema],
+    required: true,
+    validate(answers){
+      if(!answers.some((answer) => answer.accepted))
+        throw new Error('A Question must have at least a correct answer!')
+    },
+  },
   degree: {
     type: Number,
     required: true,
