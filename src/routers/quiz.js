@@ -52,13 +52,16 @@ router.get('/quizes/:id', async ({ params: { id } }, res) => {
 router.delete('/quizes/:quizId/:questionId', auth,
   async ({ params: { quizId, questionId } }, res) => {
     try {
-      const quiz = await Quiz.findByIdAndUpdate(quizId, {
+      const modefied = await Quiz.update({ _id: quizId }, {
         $pull: { questions: { _id: questionId } },
       }, { new: true });
-      if (!quiz) {
+      if (!modefied.n) {
         throw new Error('Invalid Quiz id!');
       }
-      res.send(quiz);
+      if (!modefied.nModified) {
+        throw new Error('Invalid Question id!');
+      }
+      res.send(modefied);
     } catch (e) {
       res.status(400).send(e.message);
     }
