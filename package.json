@@ -5,17 +5,20 @@
   "main": "index.js",
   "scripts": {
     "start": "node src/index.js",
-    "dev": "nodemon src/index.js --exec 'npm run lint && node'",
-    "lint": "./node_modules/.bin/eslint src"
+    "dev": "./node_modules/.bin/env-cmd -f ./config/dev.env nodemon src/index.js --exec 'npm run lint && node'",
+    "lint": "./node_modules/.bin/eslint ."
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "env-cmd": "^9.0.3",
     "eslint": "^6.2.2",
     "eslint-config-airbnb-base": "^14.0.0",
     "eslint-plugin-import": "^2.18.2",
-    "nodemon": "^1.19.1"
+    "jest": "^24.9.0",
+    "nodemon": "^1.19.1",
+    "supertest": "^4.0.2"
   },
   "dependencies": {
     "express": "^4.17.1",
