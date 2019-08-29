@@ -52,7 +52,7 @@ router.get('/quizes/:id', async ({ params: { id } }, res) => {
 router.delete('/quizes/:quizId/:questionId', auth,
   async ({ params: { quizId, questionId } }, res) => {
     try {
-      const modefied = await Quiz.update({ _id: quizId }, {
+      const modefied = await Quiz.updateOne({ _id: quizId }, {
         $pull: { questions: { _id: questionId } },
       }, { new: true });
       if (!modefied.n) {
