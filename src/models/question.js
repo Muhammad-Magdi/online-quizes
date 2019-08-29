@@ -9,8 +9,8 @@ const questionSchema = new mongoose.Schema({
   answers: {
     type: [answerSchema],
     required: true,
-    validate(answers){
-      if (!answers.some((answer) => answer.accepted)){
+    validate(answers) {
+      if (!answers.some((answer) => answer.accepted)) {
         throw new Error('A Question must have at least a correct answer!');
       }
     },

@@ -8,7 +8,7 @@ const answerSchema = new mongoose.Schema({
   text: {
     type: String,
     required: true,
-  }
+  },
 });
 
 const Answer = mongoose.model('Answer', answerSchema);
