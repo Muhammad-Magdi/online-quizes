@@ -5,7 +5,10 @@ const answerSchema = new mongoose.Schema({
     type: Boolean,
     required: true,
   },
-  text: String,
+  text: {
+    type: String,
+    required: true,
+  }
 });
 
 const Answer = mongoose.model('Answer', answerSchema);
