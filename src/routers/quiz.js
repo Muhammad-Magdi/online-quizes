@@ -22,7 +22,7 @@ router.post('/quizes/:id', auth, async (req, res) => {
     }
     quiz.questions.push(req.body);
     await quiz.save();
-    res.status(200).send(quiz);
+    res.send(quiz);
   } catch (e) {
     res.status(500).send(e);
   }
@@ -41,26 +41,27 @@ router.get('/quizes/:id', async ({ params: { id } }, res) => {
   try {
     const quiz = await Quiz.findById(id);
     if (!quiz) {
-      throw new Error('Invalid Quiz id!');
+      res.status(400).send(new Error('Invalid Quiz id!'));
     }
-    res.status(200).send(quiz);
+    res.send(quiz);
   } catch (e) {
     res.status(500).send(e);
   }
 });
 
-router.delete('/quizes/:id', auth, async ({ params: { id: quizId }, body: { _id: questionId } }, res) => {
-  try {
-    const quiz = await Quiz.findByIdAndUpdate(quizId, {
-      $pull: { questions: { _id: questionId } },
-    }, { new: true });
-    if (!quiz) {
-      throw new Error('Invalid Quiz id!');
+router.delete('/quizes/:quizId/:questionId', auth,
+  async ({ params: { quizId, questionId } }, res) => {
+    try {
+      const quiz = await Quiz.findByIdAndUpdate(quizId, {
+        $pull: { questions: { _id: questionId } },
+      }, { new: true });
+      if (!quiz) {
+        throw new Error('Invalid Quiz id!');
+      }
+      res.send(quiz);
+    } catch (e) {
+      res.status(400).send(e.message);
     }
-    res.status(200).send(quiz);
-  } catch (e) {
-    res.status(400).send(e.message);
-  }
-});
+  });
 
 module.exports = router;
