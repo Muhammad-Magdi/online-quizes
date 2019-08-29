@@ -1,9 +1,7 @@
-const ACCEPTEDTOKEN = 'HelloWorld';
-
 const auth = async (req, res, next) => {
   try {
     const token = req.header('x-fake-token');
-    if (token !== ACCEPTEDTOKEN) {
+    if (token !== process.env.ACCEPTEDTOKEN) {
       throw new Error();
     }
     next();
