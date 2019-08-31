@@ -1,19 +1,27 @@
 const mongoose = require('mongoose');
-const answerSchema = require('./answer').schema;
+
+/**
+ * Questions come in 3 types:
+ *  1- MCQ Questions that have only one correct answer
+ *  2- MCQ Questions that have one or more correct answer
+ *  3- Short Text Questions that may have any number of correct answers
+ */
 
 const questionSchema = new mongoose.Schema({
+  type: {
+    type: String,
+    enum: ['mcq-1', 'mcq-check', 'short-text'],
+  },
   statement: {
     type: String,
     required: true,
   },
-  answers: {
-    type: [answerSchema],
-    required: true,
-    validate(answers) {
-      if (!answers.some((answer) => answer.accepted)) {
-        throw new Error('A Question must have at least a correct answer!');
-      }
-    },
+  correctAnswers: {
+    type: [String],
+    required: (this.type !== 'short-text'),
+  },
+  wrongAnswers: {
+    type: [String],
   },
   degree: {
     type: Number,
