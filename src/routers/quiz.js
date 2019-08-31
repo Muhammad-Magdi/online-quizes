@@ -3,12 +3,14 @@ const Quiz = require('../models/quiz');
 const auth = require('../middlewares/auth');
 const joi = require('joi');
 const questionSchema = require('../validation-schemas/question');
+const quizSchema = require('../validation-schemas/quiz');
 
 const router = new express.Router();
 
 router.post('/quizes', auth, async (req, res) => {
-  const quiz = new Quiz(req.body);
   try {
+    await joi.validate(req.body, quizSchema);
+    const quiz = new Quiz(req.body);
     await quiz.save();
     res.status(201).send(quiz);
   } catch (e) {
