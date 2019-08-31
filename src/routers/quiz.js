@@ -49,7 +49,7 @@ router.get('/quizes/:id', async ({ params: { id } }, res) => {
   }
 });
 
-router.delete('/quizes/:quizId/:questionId', auth,
+router.delete('/quizes/:quizId/questions/:questionId', auth,
   async ({ params: { quizId, questionId } }, res) => {
     try {
       const modefied = await Quiz.updateOne({ _id: quizId }, {
