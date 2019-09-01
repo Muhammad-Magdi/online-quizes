@@ -20,9 +20,11 @@ const validRejectedAnswer = {
 }
 
 const validQuestion = {
+  type: 'mcq-1',
   statement: validStatement,
   degree: validDegree,
-  answers: [validAcceptedAnswer, validRejectedAnswer],
+  correctAnswers: ['Ok'],
+  wrongAnswers: ['No', 'False'],
 }
 
 const validQuiz = {
