@@ -42,3 +42,4 @@ Send requests to https://magdi-online-quizes.herokuapp.com suffixed by a valid p
 `DELETE` from `https://magdi-online-quizes.herokuapp.com/quizes/:quizId/questions/questionId` with:
 - A valid quiz `_id`.
 - A valid question `_id`.
+- An Authentication token in the `x-fake-token` HTTP header with the value `HelloWorld`.
