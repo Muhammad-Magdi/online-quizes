@@ -19,7 +19,7 @@ const questionSchema = new mongoose.Schema({
   correctAnswers: {
     type: [String],
     // TODO - doesn't work - but validate covers
-    required: function(){
+    required: function() {
       return this.type !== 'short-text';
     },
   },

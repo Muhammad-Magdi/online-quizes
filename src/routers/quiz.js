@@ -47,7 +47,7 @@ router.post('/quizes/:quizId/questions', auth, async (req, res) => {
     if (!modefied.n) {
       throw new Error('Invalid Quiz id!');
     }
-    res.statuc(201).send(question);
+    res.status(201).send(question);
   } catch (e) {
     res.status(400).send(e.message);
   }
